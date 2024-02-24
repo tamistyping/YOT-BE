@@ -5,15 +5,16 @@ from .managers import CustomUserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    first_name = models.CharField(_("first Name"), max_length=30)
+    username = models.CharField(_("User Name"), max_length=35, unique=True)
+    first_name = models.CharField(_("First Name"), max_length=30)
     last_name = models.CharField(_("Last Name"), max_length=50)
     email = models.EmailField(_("Email Address"), max_length=254, unique=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
     
-    USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["frist_name", "last_name"]
+    USERNAME_FIELD = "username"
+    REQUIRED_FIELDS = ["first_name", "last_name"]
     
     objects = CustomUserManager()
     

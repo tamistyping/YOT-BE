@@ -9,9 +9,9 @@ class UserAdmin(BaseUserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = User
-    list_display = ["email", "first_name", "last_name", "is_staff", "is_active"]
+    list_display = ["username", "email", "first_name", "last_name", "is_staff", "is_active"]
     list_display_links = ["email"]
-    list_filter = ["email", "first_name", "last_name", "is_staff", "is_active"]
-    search_fields = ["email", "first_name", "last_name"]
+    list_filter = ["username", "email", "first_name", "last_name", "is_staff", "is_active"]
+    search_fields = ["username", "email", "first_name", "last_name"]
 
 admin.site.register(User, UserAdmin)

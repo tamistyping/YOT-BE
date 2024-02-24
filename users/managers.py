@@ -31,7 +31,7 @@ class CustomUserManager(BaseUserManager):
             first_name=first_name,
             last_name=last_name,
             email=email,
-            user_name=username,
+            username=username,
             **extra_fields
         )
         

@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     # External Apps
     'rest_framework',
     'corsheaders',
-    'djoser'
-    'rest_framework_simple_jwt'
+    'djoser',
+    'rest_framework_simplejwt',
     # Internal Apps
     'users'
 ]
@@ -98,7 +98,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -107,7 +107,6 @@ AUTH_USER_MODEL = 'users.User'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        (...)
     ),
 }
 
@@ -126,7 +125,6 @@ SIMPLE_JWT = {
 DJOSER = {
     'LOGIN_FIELD': 'username',
     'USER_CREATE_PASSWORD_RETYPE': True,
-    'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
     'SET_PASSWORD_RETYPE': True,
     'SERIALIZERS': {
         'user_create': 'djoser.serializers.UserCreateSerializer',

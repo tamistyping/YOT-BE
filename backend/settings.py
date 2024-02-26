@@ -10,7 +10,9 @@ environ.Env.read_env(BASE_DIR / ".env")
 SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost'
+]
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000'
@@ -39,9 +41,12 @@ INSTALLED_APPS = [
     'corsheaders',
     'djoser',
     'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
     # Internal Apps
     'users'
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -55,6 +60,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'backend.urls'
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost/'
+]
 
 TEMPLATES = [
     {

@@ -14,7 +14,7 @@ def top_rated_games(request):
         'Authorization': f"Bearer {os.environ['IGDB_ACCESS_TOKEN']}"
     }
     params = {
-        'fields': 'name,genres.name,platforms.name,url,summary,cover.url,first_release_date',
+        'fields': 'name,genres.name,platforms.name,url,summary,cover.url,first_release_date,release_dates.date,rating',
         'order': 'total_rating_count desc',
         'limit': 9,
     }
@@ -41,7 +41,7 @@ def top_anticipated_games(request):
     timestamp_2027 = int(datetime(2027, 1, 1).timestamp())
     
     params = {
-        'fields': 'name,genres.name,platforms.name,url,summary,cover.url,first_release_date', 
+        'fields': 'name,genres.name,platforms.name,url,summary,cover.url,first_release_date,release_dates.date,rating', 
         'where': f'platforms != 48 & date > {timestamp_2024} & date < {timestamp_2027}',
         'order': 'aggregated_rating desc',
         'limit': 9,
@@ -66,8 +66,8 @@ def search_games(request):
         }
         params = {
             'search': query,
-            'fields': 'name,genres.name,platforms.name,url,summary,cover.url,first_release_date',
-            'limit': 9,
+            'fields': 'name,genres.name,platforms.name,url,summary,cover.url,first_release_date,release_dates.date,rating',
+            'limit': 3,
         }
 
         response = requests.get(url, headers=headers, params=params)

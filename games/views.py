@@ -1,9 +1,8 @@
-from django.shortcuts import render
 import requests, os
 from django.http import JsonResponse
 from datetime import datetime
 
-from .serializers import *
+
 
 def top_rated_games(request):
     

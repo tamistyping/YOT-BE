@@ -51,7 +51,6 @@ def top_anticipated_games(request):
     
     if response.status_code == 200:
         top_anticipated_games_data = response.json()
-        print(top_anticipated_games_data)
         return JsonResponse({'games': top_anticipated_games_data})
     else:
         return JsonResponse({'error': 'Failed to fetch'}, status=response.status_code)

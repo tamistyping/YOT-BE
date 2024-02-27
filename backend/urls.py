@@ -22,4 +22,5 @@ urlpatterns = [
     path('api/v1/auth/', include('djoser.urls')),
     path('api/v1/auth/', include('djoser.urls.jwt')),
     path('games/', include('games.urls')),
+    path('', include('statuses.urls'))
 ]

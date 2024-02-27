@@ -5,7 +5,6 @@ from datetime import datetime
 
 from .serializers import *
 
-# Create your views here.
 def top_rated_games(request):
     
     url = f"{os.environ['IGDB_BASE_URL']}/games"

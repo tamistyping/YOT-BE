@@ -14,7 +14,7 @@ def top_rated_games(request):
     params = {
         'fields': 'name,genres.name,platforms.name,url,summary,cover.url,first_release_date,release_dates.date,rating,screenshots.url',
         'order': 'total_rating_count desc',
-        'limit': 9,
+        'limit': 10,
     }
     
     response = requests.get(url, headers=headers, params=params)
@@ -40,9 +40,9 @@ def top_anticipated_games(request):
     
     params = {
         'fields': 'name,genres.name,platforms.name,url,summary,cover.url,first_release_date,release_dates.date,rating,screenshots.url', 
-        'where': f'platforms != 48 & date > {timestamp_2024} & date < {timestamp_2027}',
+        'where': f'date > {timestamp_2024} & date < {timestamp_2027}',
         'order': 'aggregated_rating desc',
-        'limit': 9,
+        'limit': 10,
     }
 
     response = requests.get(url, headers=headers, params=params)

@@ -1,20 +1,24 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Status
+from django.core.serializers import serialize
 from .serializers import StatusSerializer
+import json
 
-def view_status(request, status_id):
-    status = get_object_or_404(Status, pk=status_id)
-    return render(request, 'view_status.html', {'status': status})
+def view_status(request):
+    statuses = Status.objects.order_by('-created_at')  
+    serializer = StatusSerializer(statuses, many=True)
+    return JsonResponse(serializer.data, safe=False)
 
 def add_status(request):
     if request.method == 'POST':
-        serializer = StatusSerializer(data=request.POST)
+        data = json.loads(request.body)
+        serializer = StatusSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return redirect('status_detail', status_id=serializer.data['id'])
+            return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
-    return render(request, 'add_status.html')
+    return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
 
 def edit_status(request, status_id):
     status = get_object_or_404(Status, pk=status_id)
@@ -30,6 +34,6 @@ def delete_status(request, status_id):
     status = get_object_or_404(Status, pk=status_id)
     if request.method == 'DELETE':
         status.delete()
-        return redirect('status_list')
-    return render(request, 'delete_status.html', {'status': status})
+        return JsonResponse({'message': 'Status deleted successfully'})
+    return JsonResponse({'error': 'Only DELETE requests are allowed'}, status=405)
 

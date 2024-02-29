@@ -12,8 +12,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(auto_now_add=True)
-    game_collection = models.ManyToManyField('self', symmetrical=False, blank=True)
-     
+    profile_picture = models.ImageField(_("Profile Picture"), upload_to="profile_pictures/", blank=True, null=True)
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["first_name", "last_name", "email"]
     

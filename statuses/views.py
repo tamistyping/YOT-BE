@@ -3,13 +3,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Status
 from django.core.serializers import serialize
 from .serializers import StatusSerializer
+from django.views.decorators.csrf import csrf_exempt
 import json
 
+@csrf_exempt
 def view_status(request):
     statuses = Status.objects.order_by('-created_at')  
     serializer = StatusSerializer(statuses, many=True)
     return JsonResponse(serializer.data, safe=False)
 
+@csrf_exempt
 def add_status(request):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -20,6 +23,7 @@ def add_status(request):
         return JsonResponse(serializer.errors, status=400)
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
 
+@csrf_exempt
 def edit_status(request, status_id):
     status = get_object_or_404(Status, pk=status_id)
     if request.method == 'PUT':
@@ -30,6 +34,7 @@ def edit_status(request, status_id):
             return redirect('status_detail', status_id=status_id)
     return render(request, 'edit_status.html', {'status': status})
 
+@csrf_exempt
 def delete_status(request, status_id):
     status = get_object_or_404(Status, pk=status_id)
     if request.method == 'DELETE':

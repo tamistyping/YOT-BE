@@ -15,6 +15,8 @@ PGHOST = env("PGHOST")
 
 ALLOWED_HOSTS = [
     'localhost',
+    'yot-be-production.up.railway.app',
+    'yot-be.railway.internal'
 ]
 
 

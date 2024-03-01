@@ -43,20 +43,16 @@ def remove_from_collection(request, game_id):
     
 @csrf_exempt
 def add_photo(request, user_id):
-    # photo-file maps to the "name" attr on the <input>
     photo_file = request.FILES.get('photo-file', None)
     if photo_file:
         s3 = boto3.client('s3')
-        # Need a unique "key" (filename)
-        # It needs to keep the same file extension
-        # of the file that was uploaded (.png, .jpeg, etc.)
         key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
         try:
             bucket = os.environ['AWS_STORAGE_BUCKET_NAME']
             s3.upload_fileobj(photo_file, bucket, key)
             url = f"https://{bucket}.s3.amazonaws.com/{key}"
             user = User.objects.get(pk=user_id)
-            user.profile_picture = url  # Update the profile picture field of the user
+            user.profile_picture = url 
             user.save()
             return JsonResponse({'message': 'Profile picture added successfully', 'url': url}, status=200)
         except Exception as e:

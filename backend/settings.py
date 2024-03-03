@@ -51,7 +51,7 @@ INSTALLED_APPS = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
+    'https://youontonight.netlify.app',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True

@@ -2,8 +2,6 @@ import requests, os
 from django.http import JsonResponse
 from datetime import datetime
 
-
-
 def top_rated_games(request):
     
     url = f"{os.environ['IGDB_BASE_URL']}/games"
